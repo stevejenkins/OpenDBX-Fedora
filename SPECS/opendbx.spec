@@ -11,7 +11,7 @@ License:        GPLv2+
 URL:            http://www.linuxnetworks.de/doc/index.php/OpenDBX
 Source0:        http://linuxnetworks.de/opendbx/download/%{name}-%{version}.tar.gz
 Patch0:         opendbx-1.4.6-freetds-fix.patch
-#Patch1:         opendbx-1.4.6-doxyfile-fix.patch
+Patch1:         opendbx-1.4.6-doxyfile-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -107,12 +107,10 @@ The %{name}-utils package provides the odbx-sql tool.
 %prep
 %setup -q
 %patch0 -p1 -b .freetds
-#%patch1 -p1 -b .doxyfile
+%patch1 -p1 -b .doxyfile
 
 # To fix Doxygen parsing issue
-#ln -s lib/%{name}/api lib/%{name}/api.dox
-#mv lib/%{name}/api lib/%{name}/api.dox
-#ln -s lib/%{name}/api.dox lib/%{name}/api
+ln -s lib/%{name}/api lib/%{name}/api.dox
 
 %build
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
