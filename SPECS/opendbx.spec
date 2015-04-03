@@ -110,7 +110,7 @@ The %{name}-utils package provides the odbx-sql tool.
 %patch1 -p1 -b .doxyfile
 
 # To fix Doxygen parsing issue
-ln -s lib/%{name}/api lib/%{name}/api.dox
+ln -s api lib/%{name}/api.dox
 
 %build
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
