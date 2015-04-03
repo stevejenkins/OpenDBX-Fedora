@@ -1,0 +1,11 @@
+--- opendbx-1.4.6/doc/Doxyfile.in	2010-07-31 19:08:41.000000000 -0700
++++ opendbx-1.4.6/doc/Doxyfile.in.new	2015-04-03 10:12:28.884612548 -0700
+@@ -92,7 +92,7 @@
+ #---------------------------------------------------------------------------
+ # configuration options related to the input files
+ #---------------------------------------------------------------------------
+-INPUT                  = ../lib/opendbx/api \
++INPUT                  = ../lib/opendbx/api.dox \
+                          ../lib/opendbx/api.h
+ INPUT_ENCODING         = UTF-8
+ FILE_PATTERNS          = *.c \

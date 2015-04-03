@@ -11,10 +11,9 @@ License:        GPLv2+
 URL:            http://www.linuxnetworks.de/doc/index.php/OpenDBX
 Source0:        http://linuxnetworks.de/opendbx/download/%{name}-%{version}.tar.gz
 Patch0:         opendbx-1.4.6-freetds-fix.patch
+#Patch1:         opendbx-1.4.6-doxyfile-fix.patch
 
-%if 0%{?rhel} && 0%{?rhel} == 5
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-%endif
 
 BuildRequires:  mysql-devel, postgresql-devel, sqlite2-devel, sqlite-devel, firebird-devel, readline-devel
 BuildRequires:  freetds-devel, ncurses-devel
@@ -108,13 +107,18 @@ The %{name}-utils package provides the odbx-sql tool.
 %prep
 %setup -q
 %patch0 -p1 -b .freetds
+#%patch1 -p1 -b .doxyfile
+
+# To fix Doxygen parsing issue
+#ln -s lib/%{name}/api lib/%{name}/api.dox
+#mv lib/%{name}/api lib/%{name}/api.dox
+#ln -s lib/%{name}/api.dox lib/%{name}/api
 
 %build
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make %{?_smp_mflags}
-
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -173,7 +177,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 * Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-5
-- Made BuildRoot conditional for EL5 only
+- Applied patch for Doxyfile parser issue (similar to Debian bug 759951)
+- Rename lib/opendbx/api to lib/opendbx/api.dox to allow Doxyfile parsing
 
 * Thu Apr 02 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-4
 - Added Group: info for package and sub-packages (for EL5 and EL6)
