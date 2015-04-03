@@ -1,6 +1,6 @@
 Name:           opendbx
 Version:        1.4.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Group:          Development/Libraries
 Summary:        Lightweight but extensible database access library written in C
 
@@ -174,9 +174,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-6
+- Removing percentage sign from 1.4.6-5 comments; it made EL6 choke
+
 * Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-5
 - Applied patch for Doxyfile.in issue (similar to Debian bug #759951)
-- Create symlink in %prep to work around doxygen issue (Bugzilla #1208902)
+- Create symlink in prep to work around doxygen issue (Bugzilla #1208902)
 
 * Thu Apr 02 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-4
 - Added Group: info for package and sub-packages (for EL5 and EL6)
