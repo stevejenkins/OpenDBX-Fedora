@@ -175,8 +175,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 * Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-5
-- Applied patch for Doxyfile parser issue (similar to Debian bug 759951)
-- Rename lib/opendbx/api to lib/opendbx/api.dox to allow Doxyfile parsing
+- Applied patch for Doxyfile.in issue (similar to Debian bug #759951)
+- Create symlink in %prep to work around doxygen issue (Bugzilla #1208902)
 
 * Thu Apr 02 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-4
 - Added Group: info for package and sub-packages (for EL5 and EL6)
