@@ -1,6 +1,6 @@
 Name:           opendbx
 Version:        1.4.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Group:          Development/Libraries
 Summary:        Lightweight but extensible database access library written in C
 
@@ -110,16 +110,16 @@ The %{name}-utils package provides the odbx-sql tool.
 %patch1 -p1 -b .doxyfile
 
 # To fix Doxygen parsing issue
-ln -s api lib/%{name}/api.dox
+%{__ln_s} api lib/%{name}/api.dox
 
 %build
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%{__sed} -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+%{__sed} -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+%{__make} %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %find_lang %{name}
@@ -128,6 +128,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
+
+%clean
+%{__rm} -rf %{buildroot}
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
@@ -174,6 +177,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Mon Apr 13 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-7
+- Added clean BuildRoot section for EL5
+- Replaced various commands with rpm macros
+
 * Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-6
 - Removing percentage sign from 1.4.6-5 comments; it made EL6 choke
 
