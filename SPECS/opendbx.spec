@@ -1,6 +1,6 @@
 Name:           opendbx
 Version:        1.4.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Group:          Development/Libraries
 Summary:        Lightweight but extensible database access library written in C
 
@@ -177,9 +177,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
-* Mon Apr 13 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-7
+* Mon May 04 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-8
 - Added clean BuildRoot section for EL5
 - Replaced various commands with rpm macros
+
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.4.6-7
+- Rebuilt for GCC 5 C++11 ABI change
 
 * Fri Apr 03 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-6
 - Removing percentage sign from 1.4.6-5 comments; it made EL6 choke
