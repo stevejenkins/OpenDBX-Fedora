@@ -1,6 +1,6 @@
-Name:           opendbx
-Version:        1.4.6
-Release:        8%{?dist}
+Name:           libopendbx
+Version:        1.5.0
+Release:        1%{?dist}
 Group:          Development/Libraries
 Summary:        Lightweight but extensible database access library written in C
 
@@ -10,8 +10,7 @@ Summary:        Lightweight but extensible database access library written in C
 License:        GPLv2+
 URL:            http://www.linuxnetworks.de/doc/index.php/OpenDBX
 Source0:        http://linuxnetworks.de/opendbx/download/%{name}-%{version}.tar.gz
-Patch0:         opendbx-1.4.6-freetds-fix.patch
-Patch1:         opendbx-1.4.6-doxyfile-fix.patch
+Patch0:         libopendbx-1.5.0-doxyfile-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -20,8 +19,8 @@ BuildRequires:  freetds-devel, ncurses-devel
 BuildRequires:  doxygen, docbook2X, gettext
 
 %{?filter_setup:
-%filter_provides_in %{_libdir}/opendbx/lib.*backend\.so.*$
-%filter_requires_in %{_libdir}/opendbx/lib.*backend\.so.*$
+%filter_provides_in %{_libdir}/%{name}/lib.*backend\.so.*$
+%filter_requires_in %{_libdir}/%{name}/lib.*backend\.so.*$
 %filter_setup
 }
 
@@ -106,8 +105,7 @@ The %{name}-utils package provides the odbx-sql tool.
 
 %prep
 %setup -q
-%patch0 -p1 -b .freetds
-%patch1 -p1 -b .doxyfile
+%patch0 -p1 -b .doxyfile
 
 # To fix Doxygen parsing issue
 %{__ln_s} api lib/%{name}/api.dox
@@ -134,9 +132,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
-%dir %{_libdir}/opendbx
+%dir %{_libdir}/
 %{_libdir}/*.so.*
-%{_datadir}/opendbx/keywords
+%{_datadir}/%{name}/keywords
 
 %files devel
 %{_includedir}/*
@@ -145,38 +143,44 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*.gz
 
 %files mysql
-%{_libdir}/opendbx/*mysql*.so
-%{_libdir}/opendbx/*mysql*.so.*
+%{_libdir}/%{name}/*mysql*.so
+%{_libdir}/%{name}/*mysql*.so.*
 
 %files postgresql
-%{_libdir}/opendbx/*pgsql*.so
-%{_libdir}/opendbx/*pgsql*.so.*
+%{_libdir}/%{name}/*pgsql*.so
+%{_libdir}/%{name}/*pgsql*.so.*
 
 %files sqlite2
-%{_libdir}/opendbx/*sqlitebackend.so
-%{_libdir}/opendbx/*sqlitebackend.so.*
+%{_libdir}/%{name}/*sqlitebackend.so
+%{_libdir}/%{name}/*sqlitebackend.so.*
 
 %files sqlite
-%{_libdir}/opendbx/*sqlite3backend.so
-%{_libdir}/opendbx/*sqlite3backend.so.*
+%{_libdir}/%{name}/*sqlite3backend.so
+%{_libdir}/%{name}/*sqlite3backend.so.*
 
 %files firebird
-%{_libdir}/opendbx/*firebird*.so
-%{_libdir}/opendbx/*firebird*.so.*
+%{_libdir}/%{name}/*firebird*.so
+%{_libdir}/%{name}/*firebird*.so.*
 
 %files mssql
-%{_libdir}/opendbx/*mssql*.so
-%{_libdir}/opendbx/*mssql*.so.*
+%{_libdir}/%{name}/*mssql*.so
+%{_libdir}/%{name}/*mssql*.so.*
 
 %files sybase
-%{_libdir}/opendbx/*sybase*.so
-%{_libdir}/opendbx/*sybase*.so.*
+%{_libdir}/%{name}/*sybase*.so
+%{_libdir}/%{name}/*sybase*.so.*
 
 %files utils -f %{name}-utils.lang
 %{_bindir}/odbx-sql
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Thu Jul 21 2016 Steve Jenkins <steve@stevejenkins.com> - 1.5.0-1
+- Update to upstream 1.5.0 source
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon May 04 2015 Steve Jenkins <steve@stevejenkins.com> - 1.4.6-8
 - Added clean BuildRoot section for EL5
 - Replaced various commands with rpm macros

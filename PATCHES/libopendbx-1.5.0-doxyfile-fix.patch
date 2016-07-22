@@ -1,5 +1,5 @@
---- opendbx-1.4.6.orig/doc/Doxyfile.in	2010-07-31 19:08:41.000000000 -0700
-+++ opendbx-1.4.6/doc/Doxyfile.in	2015-04-03 12:39:36.074747384 -0700
+--- libopendbx-1.5.0.orig/doc/Doxyfile.in	2010-07-31 19:08:41.000000000 -0700
++++ libopendbx-1.5.0/doc/Doxyfile.in	2015-04-03 12:39:36.074747384 -0700
 @@ -1,16 +1,115 @@
 -# Doxyfile 1.5.6
 +# Doxyfile 1.8.6
@@ -749,7 +749,7 @@
 -# configuration options related to the input files
 +# Configuration options related to the input files
  #---------------------------------------------------------------------------
--INPUT                  = ../lib/opendbx/api \
+-INPUT                  = ../lib/libopendbx/api \
 +
 +# The INPUT tag is used to specify the files and/or directories that contain
 +# documented source files. You may enter file names like myfile.cpp or
@@ -757,8 +757,8 @@
 +# spaces.
 +# Note: If this tag is empty the current directory is searched.
 +
-+INPUT                  = ../lib/opendbx/api.dox \
-                          ../lib/opendbx/api.h
++INPUT                  = ../lib/libopendbx/api.dox \
+                          ../lib/libopendbx/api.h
 +
 +# This tag can be used to specify the character encoding of the source files
 +# that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
